@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Skill Exchanger Student Login</title>
+    <!-- Load Tailwind CSS --><script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        /* Custom font import for a cleaner look */
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap');
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            /* Applying the new dark blue nude gradient background */
+            background: linear-gradient(135deg, #2c3e50 0%, #34495e 50%, #1a252f 100%); /* Dark Slate/Navy Nude Gradient */
+        }
+    </style>
+</head>
+<body class="min-h-screen flex items-center justify-center p-4 sm:p-8">
+
+    <div id="login-card" class="w-full max-w-md bg-white shadow-xl rounded-2xl p-6 sm:p-10 border border-stone-100/50 transition-all duration-300 transform hover:shadow-2xl">
+        
+        <!-- STUDENT BANNER: Now with dark blue gradient --><div class="mb-6 p-2 rounded-xl text-center font-bold text-white 
+                    bg-gradient-to-r from-blue-500 to-blue-700 shadow-md"> <!-- Accent changed to blue -->Student Access Portal
+        </div>
+        
+        <!-- Logo and Heading: Accent changed to blue --><header class="text-center mb-8">
+            <h1 class="text-5xl font-extrabold text-stone-800 tracking-tight mb-2">
+                <span class="bg-clip-text text-transparent bg-gradient-to-r from-blue-500 to-blue-700"> <!-- Accent changed to blue -->Skill Exchanger
+                </span>
+            </h1>
+            <p class="text-stone-500 mt-1">Empowering the next generation of professionals</p>
+        </header>
+
+        <!-- Login Form --><form id="login-form" class="space-y-6">
+            
+            <div>
+                <label for="username" class="block text-sm font-medium text-stone-700 mb-2">Email or Phone Number</label>
+                <input 
+                    type="text" 
+                    id="username" 
+                    placeholder="your.student.id@SkillExchanger.com"
+                    required 
+                    class="w-full px-4 py-3 border border-stone-200 rounded-xl shadow-inner focus:ring-2 focus:ring-blue-300 focus:border-blue-400 transition duration-150 outline-none" 
+                >
+            </div>
+            
+            <div>
+                <label for="password" class="block text-sm font-medium text-stone-700 mb-2">Password</label>
+                <input 
+                    type="password" 
+                    id="password" 
+                    placeholder="••••••••"
+                    required 
+                    class="w-full px-4 py-3 border border-stone-200 rounded-xl shadow-inner focus:ring-2 focus:ring-blue-300 focus:border-blue-400 transition duration-150 outline-none" 
+                >
+                <p class="text-xs text-stone-400 mt-1">
+                    Password must be 8+ chars, with upper, lower, number, and symbol.
+                </p>
+            </div>
+            
+            <!-- Submit Button with Gradient Styling: Accent changed to blue --><button 
+                type="submit" 
+                class="w-full flex justify-center py-3 px-4 border border-transparent rounded-xl shadow-lg 
+                       text-base font-semibold text-white 
+                       bg-gradient-to-r from-blue-600 to-blue-800 
+                       hover:from-blue-700 hover:to-blue-900 
+                       focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-600 
+                       transition duration-300 ease-in-out transform hover:-translate-y-0.5"
+            >
+                Log In
+            </button>
+        </form>
+
+        <!-- Message Box for Feedback (Validation remains robust) --><div id="message-box" class="mt-6 p-3 text-center text-sm font-medium rounded-xl hidden transition-all duration-300">
+            <!-- Message content goes here --></div>
+
+        <!-- Footer Links (Still removed) --><footer class="mt-8 text-center text-sm">
+            <!-- Footer links removed as requested --></footer>
+    </div>
+
+    <!-- JavaScript (Validation Logic remains the same) --><script>
+        document.getElementById('login-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const username = document.getElementById('username').value.trim();
+            const password = document.getElementById('password').value;
+            const msgBox = document.getElementById('message-box');
+
+            // --- Regex Definitions for Robust Validation ---
+            const emailRegex = /^\S+@\S+\.\S+$/;
+            const phoneRegex = /^\d{10}$/;
+            const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
+
+            // Reset message box classes and ensure it's hidden before showing new message
+            msgBox.classList.add('hidden');
+            msgBox.classList.remove('bg-red-100', 'text-red-700', 'bg-green-100', 'text-green-700');
+            
+            let isValid = true;
+            let errorMessage = '';
+
+            // --- 1. Validate Username (Email OR Phone) ---
+            const cleanUsernameForPhoneCheck = username.replace(/[^0-9]/g, ''); 
+            const isEmail = emailRegex.test(username);
+            const isPhone = phoneRegex.test(cleanUsernameForPhoneCheck);
+            
+            if (!username) {
+                isValid = false;
+                errorMessage = '⚠️ Please enter your Email or Phone Number.';
+            } else if (!isEmail && !isPhone) {
+                isValid = false;
+                errorMessage = '⚠️ Please enter a valid Email address (e.g., user@domain.com) OR a 10-digit Phone Number.';
+            } 
+            
+            // --- 2. Validate Password Presence ---
+            else if (!password) {
+                isValid = false;
+                errorMessage = '⚠️ Please enter your password.';
+            } 
+            
+            // --- 3. Validate Password Strength ---
+            else if (!passwordRegex.test(password)) {
+                isValid = false;
+                errorMessage = '🔒 Your password is not strong enough. It must be at least 8 characters long and include: **uppercase letters**, **lowercase letters**, **numbers**, and **special characters** (@$!%*?&).';
+            }
+
+            // --- Display Result and Redirect/Hide Message ---
+            msgBox.classList.remove('hidden');
+
+            if (!isValid) {
+                // Failure: Show error and hide after 8 seconds
+                msgBox.classList.add('bg-red-100', 'text-red-700');
+                msgBox.innerHTML = errorMessage;
+                
+                setTimeout(() => {
+                    msgBox.classList.add('hidden');
+                }, 8000);
+            } else {
+                // Success: Show success message and redirect after 1.5 seconds
+                msgBox.classList.add('bg-green-100', 'text-green-700');
+                msgBox.innerHTML = `✅ Validation successful! Redirecting to home...`;
+                document.getElementById('password').value = '';
+                
+                // --- REDIRECT LOGIC ADDED HERE ---
+                setTimeout(() => {
+                    window.location.href = 'student.html';
+                }, 1500);
+            }
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Welcome to Skill Exchanger</title>
+    <!-- Importing Poppins font from Google Fonts for a modern, clean look --><link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+    <!-- Font Awesome for Icons (Camera, Cap, Checkmarks, Arrow) --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <style>
+        /* Base styling */
+        :root {
+            --color-primary-purple: #7E3094;
+            --color-dark-text: #2c3e50;
+            --color-light-text: #6c757d;
+            --gradient-mentor: linear-gradient(to right, #8B45B3, #C842B7);
+            --gradient-student: linear-gradient(to right, #1A56B8, #3B82F6);
+            /* Define a gradient for the "Welcome" text */
+            --gradient-welcome-text: linear-gradient(to right, #6D2181, #C842B7); /* A darker purple to pink gradient */
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            /* Applying the requested light nude shade using a subtle gradient */
+            background: linear-gradient(135deg, #F0E8F8 0%, #E0F0FF 100%); 
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            padding: 20px;
+            box-sizing: border-box;
+            text-align: center;
+            overflow-x: hidden; /* Prevent horizontal scroll bar */
+        }
+
+        .container {
+            max-width: 1200px;
+            width: 100%;
+        }
+
+        /* Header Styling */
+        .logo-icon {
+            color: var(--color-primary-purple);
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+        }
+
+        .title-group h1 {
+            font-size: 2.8rem; /* Adjusted font size for "Welcome" for better fit with gradient */
+            font-weight: 700;
+            color: var(--color-dark-text);
+            margin: 0;
+            display: flex; /* Use flex to align "Welcome to" and "SkillSwap" */
+            justify-content: center;
+            align-items: center;
+            flex-wrap: wrap; /* Allow text to wrap on smaller screens */
+        }
+        
+        /* Apply gradient to the "Welcome to" part */
+        .title-group h1 .welcome-text {
+            background: var(--gradient-welcome-text);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            color: transparent; /* Fallback for browsers that don't support background-clip: text */
+            margin-right: 10px; /* Space between "Welcome to" and "SkillSwap" */
+            line-height: 1.2; /* Adjust line height if necessary */
+        }
+
+        .title-group .highlight {
+            color: var(--color-primary-purple);
+        }
+
+        .title-group p {
+            color: var(--color-light-text);
+            font-size: 1.1rem;
+            margin-top: 10px;
+            margin-bottom: 30px; 
+        }
+
+        /* Card Layout */
+        .card-wrapper {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            margin-bottom: 40px;
+        }
+
+        .role-card {
+            background-color: white;
+            padding: 30px;
+            border-radius: 16px;
+            text-align: left;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+            max-width: 400px; 
+            flex: 1;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            border: 1px solid rgba(0, 0, 0, 0.05);
+        }
+        
+        .role-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Icon Styling */
+        .icon-box {
+            width: 60px;
+            height: 60px;
+            border-radius: 12px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .icon-box i {
+            font-size: 1.8rem;
+            color: white;
+        }
+
+        .mentor .icon-box {
+            background-color: #8B45B3; /* Base purple color */
+        }
+
+        .student .icon-box {
+            background-color: #1A56B8; /* Base blue color */
+        }
+
+        /* Card Content */
+        .card-title {
+            font-size: 1.7rem;
+            font-weight: 600;
+            color: var(--color-dark-text);
+            margin-top: 0;
+            margin-bottom: 10px;
+        }
+
+        .card-description {
+            color: var(--color-light-text);
+            font-size: 1rem;
+            margin-bottom: 25px;
+            line-height: 1.5;
+        }
+
+        .feature-list {
+            list-style: none;
+            padding: 0;
+            margin-bottom: 30px;
+        }
+
+        .feature-list li {
+            font-size: 1rem;
+            color: var(--color-dark-text);
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+        }
+
+        .feature-list i {
+            color: #3B82F6; /* Use blue for checkmark by default */
+            font-size: 1.1rem;
+            margin-right: 10px;
+        }
+        
+        /* Specific checkmark color adjustments to match the image */
+        .mentor .feature-list i {
+            color: var(--color-primary-purple); /* Purple checkmarks for mentor */
+        }
+
+        /* Button Styling */
+        .cta-button {
+            width: 100%;
+            padding: 15px 20px;
+            border: none;
+            border-radius: 8px;
+            color: white;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 10px;
+            transition: opacity 0.3s ease;
+            text-decoration: none;
+            /* FIX: Use border-box so padding is included in the 100% width calculation */
+            box-sizing: border-box; 
+        }
+
+        .cta-button:hover {
+            opacity: 0.9;
+        }
+
+        .mentor .cta-button {
+            background: var(--gradient-mentor);
+        }
+
+        .student .cta-button {
+            background: var(--gradient-student);
+        }
+
+        /* Footer Text */
+        .footer-text {
+            color: var(--color-light-text);
+            font-size: 0.9rem;
+            margin-top: 20px;
+        }
+
+        /* Responsive Design: Stacks cards on screens 900px or smaller */
+        @media (max-width: 900px) {
+            .card-wrapper {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .role-card {
+                max-width: 90%;
+            }
+
+            .title-group h1 {
+                font-size: 2.2rem;
+            }
+
+            .title-group h1 .welcome-text {
+                margin-right: 5px; /* Adjust spacing on smaller screens */
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Logo and Main Title Section --><div class="header-section">
+            <div class="logo-icon">
+                <!-- Sparkle/Star icon to emulate the image --><i class="fa-solid fa-sparkles"></i> 
+            </div>
+            <div class="title-group">
+                <h1><span class="welcome-text">Welcome to</span> <span class="highlight">Skill Exchanger</span></h1>
+                <p>Share your expertise or learn something new. Choose your journey below.</p>
+            </div>
+        </div>
+
+        <!-- Role Selection Cards --><div class="card-wrapper">
+            <!-- Mentor Card (Purple Theme) --><div class="role-card mentor">
+                <div class="icon-box">
+                    <!-- Video Camera Icon --><i class="fa-solid fa-video"></i>
+                </div>
+                <h2 class="card-title">I'm a Mentor</h2>
+                <p class="card-description">Share your skills and knowledge with eager learners. Upload video tutorials and inspire others.</p>
+                
+                <ul class="feature-list">
+                    <li><i class="fa-solid fa-check"></i> Upload skill videos</li>
+                    <li><i class="fa-solid fa-check"></i> Reach thousands of students</li>
+                    <li><i class="fa-solid fa-check"></i> Track video views</li>
+                </ul>
+
+                <a href="./mlogin.html" class="cta-button" onclick="handleRoleSelection('Mentor')">
+                    Start Teaching <i class="fa-solid fa-arrow-right"></i>
+                </a>
+            </div>
+
+            <!-- Student Card (Blue Theme) --><div class="role-card student">
+                <div class="icon-box">
+                    <!-- Graduation Cap Icon --><i class="fa-solid fa-graduation-cap"></i>
+                </div>
+                <h2 class="card-title">I'm a Student</h2>
+                <p class="card-description">Discover amazing skills from talented mentors. Watch, learn, and master new abilities.</p>
+                
+                <ul class="feature-list">
+                    <li><i class="fa-solid fa-check"></i> Browse diverse skills</li>
+                    <li><i class="fa-solid fa-check"></i> Learn at your own pace</li>
+                    <li><i class="fa-solid fa-check"></i> Unlimited access to videos</li>
+                </ul>
+
+                <a href="./slogin.html" class="cta-button" onclick="handleRoleSelection('Student')">
+                    Start Learning <i class="fa-solid fa-arrow-right"></i>
+                </a>
+                 
+            </div>
+        </div>
+        
+        <!-- Footer Text --><p class="footer-text">You can change your role anytime from your profile settings</p>
+    </div>
+
+    <script>
+        // Placeholder JavaScript for handling button clicks.
+        // In a real application, this would redirect the user or trigger a login flow.
+        function handleRoleSelection(role) {
+            console.log(`User selected role: ${role}. Initiating next step...`);
+            // You can replace this console log with actual navigation logic:
+            // if (role === 'Mentor') {
+            //     window.location.href = '/mentor-onboarding';
+            // } else {
+            //     window.location.href = '/student-dashboard';
+            // }
+            
+            // Temporary message box (since we cannot use alert())
+            const container = document.querySelector('.container');
+            let messageBox = document.getElementById('message-box');
+            if (!messageBox) {
+                messageBox = document.createElement('div');
+                messageBox.id = 'message-box';
+                messageBox.style.cssText = `
+                    position: fixed; top: 20px; right: 20px; background-color: #4CAF50; color: white;
+                    padding: 15px 25px; border-radius: 8px; box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+                    opacity: 0; transition: opacity 0.5s, transform 0.5s; transform: translateY(-30px);
+                    font-weight: 600; z-index: 1000;
+                `;
+                container.appendChild(messageBox);
+            }
+            
+            messageBox.textContent = `You selected: I'm a ${role}. `;
+            messageBox.style.backgroundColor = role === 'Mentor' ? '#8B45B3' : '#1A56B8';
+            messageBox.style.opacity = '1';
+            messageBox.style.transform = 'translateY(0)';
+            
+            setTimeout(() => {
+                messageBox.style.opacity = '0';
+                messageBox.style.transform = 'translateY(-30px)';
+            }, 3000);
+        }
+    </script>
+</body>
+</html>

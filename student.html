@@ -1,0 +1,687 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Skill Exchanger - Master New Skills</title>
+    <!-- Load Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Load Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap');
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f7f7f7; /* Light background to match video */
+        }
+        /* Custom gradient for hero and CTA */
+        .skillswap-gradient {
+            background: linear-gradient(135deg, #6b46c1 0%, #d53f8c 100%); /* Purple to Pink */
+        }
+        /* Style for the active nav link and button */
+        .nav-active {
+            position: relative;
+            color: #d53f8c; /* Pink color */
+        }
+        .nav-active::after {
+            content: '';
+            position: absolute;
+            bottom: -8px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 25px;
+            height: 4px;
+            background-color: #d53f8c;
+            border-radius: 9999px;
+        }
+        .category-card:hover {
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+            transform: translateY(-4px);
+            transition: all 0.3s ease;
+        }
+    </style>
+</head>
+<body class="text-gray-800">
+
+    <!-- Navbar -->
+    <header class="bg-white shadow-sm sticky top-0 z-10">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-20">
+                <!-- Logo -->
+                <div class="flex-shrink-0 text-xl font-bold text-indigo-600">
+                    <span class="inline-flex items-center">
+                        <i data-lucide="zap" class="w-6 h-6 mr-1"></i>
+                        Skill Exchanger
+                    </span>
+                </div>
+                
+                <!-- Main Navigation -->
+                <nav class="hidden md:flex space-x-6 lg:space-x-10">
+                    <button class="nav-link text-gray-500 hover:text-indigo-600 transition duration-150 ease-in-out" data-view="home">
+                        <i data-lucide="home" class="w-5 h-5 inline-block mr-1"></i>
+                        Home
+                    </button>
+                    <button class="nav-link text-gray-500 hover:text-indigo-600 transition duration-150 ease-in-out" data-view="browse">
+                        <i data-lucide="layout-grid" class="w-5 h-5 inline-block mr-1"></i>
+                        Browse
+                    </button>
+                    <a href="#" class="text-gray-500 hover:text-indigo-600 transition duration-150 ease-in-out">
+                        <i data-lucide="book-open" class="w-5 h-5 inline-block mr-1"></i>
+                        My Learning
+                    </a>
+                </nav>
+                
+                <!-- Secondary Actions / User -->
+                <div class="flex items-center space-x-4">
+                    <a href="#" class="text-gray-500 hover:text-indigo-600 hidden lg:inline-flex items-center text-sm">
+                        <i data-lucide="share-2" class="w-4 h-4 mr-1"></i>
+                        Share
+                    </a>
+                    <a href="#" class="text-gray-500 hover:text-indigo-600 hidden lg:inline-flex items-center text-sm">
+                        <i data-lucide="send" class="w-4 h-4 mr-1"></i>
+                        Publish
+                    </a>
+                    <a href="#" class="text-gray-500 hover:text-indigo-600">
+                        <i data-lucide="user" class="w-6 h-6"></i>
+                    </a>
+                    <a href="#" class="text-gray-500 hover:text-indigo-600 hidden sm:inline-block">
+                        <i data-lucide="log-out" class="w-6 h-6"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <main class="min-h-screen">
+        
+        <!-- Home View -->
+        <div id="home-view" class="view-content" style="display: block;">
+            
+            <!-- Hero Section -->
+            <section class="skillswap-gradient py-20 sm:py-24 text-center text-white">
+                <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+                    <p class="text-sm font-semibold mb-4 bg-white/10 py-1 px-3 inline-flex rounded-full">
+                        <i data-lucide="star" class="w-4 h-4 mr-1 fill-white text-white"></i> Your Journey to New Skills Starts Here
+                    </p>
+                    <h1 class="text-5xl sm:text-7xl font-extrabold leading-tight mb-6">
+                        Master New Skills <br> With Passion
+                    </h1>
+                    <p class="text-xl max-w-2xl mx-auto mb-10 opacity-90">
+                        Connect with expert mentors and explore video lectures in dance, music, art, and more. Learn hobbies that bring joy to your life.
+                    </p>
+                    <button class="bg-white text-indigo-600 font-bold py-3 px-8 rounded-full shadow-lg hover:bg-gray-100 transition duration-300 transform hover:scale-105 button-browse">
+                        Browse Lectures <i data-lucide="arrow-right" class="w-5 h-5 inline-block ml-2"></i>
+                    </button>
+                </div>
+            </section>
+
+            <!-- Popular Categories Section -->
+            <section class="py-16 sm:py-24">
+                <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+                    <h2 class="text-3xl sm:text-4xl font-extrabold mb-12">
+                        Explore Popular <span class="skillswap-gradient bg-clip-text text-transparent">Categories</span>
+                    </h2>
+                    
+                    <div id="category-grid" class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-6">
+                        <!-- Category Cards will be injected here by JS -->
+                    </div>
+                </div>
+            </section>
+
+            <!-- Why Choose SkillSwap Section (Features) -->
+            <section class="py-16 bg-white">
+                <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+                    <h2 class="text-3xl sm:text-4xl font-extrabold mb-12">
+                        Why Choose <span class="skillswap-gradient bg-clip-text text-transparent">Skill Exchanger</span>
+                    </h2>
+                    
+                    <div id="feature-grid" class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                        <!-- Feature Cards will be injected here by JS -->
+                    </div>
+                </div>
+            </section>
+
+            <!-- CTA Footer Section -->
+            <section class="skillswap-gradient text-center text-white py-16 mt-12 rounded-t-xl">
+                <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+                    <h2 class="text-3xl sm:text-4xl font-extrabold mb-4">
+                        Ready to Start Your Learning Journey?
+                    </h2>
+                    <p class="text-xl opacity-90">
+                        Join thousands of learners and mentors sharing their passion across the globe.
+                    </p>
+                </div>
+            </section>
+        </div>
+
+        <!-- Browse View (Hidden by default) -->
+        <div id="browse-view" class="view-content p-6" style="display: none;">
+            <div class="max-w-7xl mx-auto">
+                <h1 class="text-3xl sm:text-4xl font-extrabold mb-8 pt-4">
+                    Explore Video <span class="skillswap-gradient bg-clip-text text-transparent">Lectures</span>
+                </h1>
+
+                <!-- Filters/Search Bar -->
+                <div class="flex flex-col md:flex-row gap-4 mb-8 bg-white p-4 rounded-xl shadow-md">
+                    <div class="relative flex-grow">
+                        <i data-lucide="search" class="w-5 h-5 absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400"></i>
+                        <input id="search-input" type="text" placeholder="Search videos by title or topic..."
+                               class="w-full pl-10 pr-4 py-2 border border-gray-200 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition duration-150"
+                               oninput="filterLectures()">
+                    </div>
+                    
+                    <select id="category-filter" onchange="filterLectures()" class="w-full md:w-auto p-3 border border-gray-200 rounded-lg bg-white appearance-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition duration-150">
+                        <option value="">All Categories</option>
+                        <option value="Dance">Dance</option>
+                        <option value="Music">Music</option>
+                        <option value="Art">Art</option>
+                        <option value="Crafts">Crafts</option>
+                        <option value="Photography">Photography</option>
+                        <option value="Cooking">Cooking</option>
+                    </select>
+
+                    <select id="level-filter" onchange="filterLectures()" class="w-full md:w-auto p-3 border border-gray-200 rounded-lg bg-white appearance-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition duration-150">
+                        <option value="">All Levels</option>
+                        <option value="Beginner">Beginner</option>
+                        <option value="Intermediate">Intermediate</option>
+                        <option value="Advanced">Advanced</option>
+                    </select>
+                </div>
+
+                <!-- Lecture Grid -->
+                <p id="showing-count" class="text-sm text-gray-600 mb-4 font-medium">Showing 6 Videos</p>
+                <div id="lecture-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+                    <!-- Lecture Cards will be injected here by JS -->
+                </div>
+
+                <!-- No Results Message -->
+                <div id="no-results" class="hidden text-center py-12">
+                    <i data-lucide="meh" class="w-12 h-12 text-gray-400 mx-auto mb-4"></i>
+                    <p class="text-xl text-gray-600 font-semibold">No lectures found matching your criteria.</p>
+                    <p class="text-gray-500">Try adjusting your search query or filters.</p>
+                </div>
+
+            </div>
+        </div>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="text-center py-6 border-t mt-10">
+        <p class="text-sm text-gray-500">
+            &copy; 2025 Skill Exchanger. Share your passion, learn new skills.
+        </p>
+    </footer>
+
+    <!-- MODAL CONTAINER (Chat and Feedback) -->
+    <div id="modal-container" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-50 hidden">
+        <!-- Modal Content will be injected here -->
+    </div>
+
+    <script>
+        // Data for the Categories Section (Home Page)
+        const categories = [
+            { name: "Dance", icon: "feather", color: "text-red-500", bg: "bg-red-50" },
+            { name: "Music", icon: "music", color: "text-indigo-500", bg: "bg-indigo-50" },
+            { name: "Art", icon: "paintbrush", color: "text-teal-500", bg: "bg-teal-50" },
+            { name: "Crafts", icon: "scissors", color: "text-yellow-500", bg: "bg-yellow-50" },
+            { name: "Photography", icon: "camera", color: "text-pink-500", bg: "bg-pink-50" },
+            { name: "Cooking", icon: "chef-hat", color: "text-green-500", bg: "bg-green-50" },
+        ];
+
+        // Data for the Features Section (Home Page)
+        const features = [
+            { 
+                title: "Quality Video Lectures", 
+                description: "Learn from expert mentors through professionally crafted video lessons.", 
+                icon: "monitor-play", 
+                color: "text-indigo-600", 
+                bg: "bg-indigo-50" 
+            },
+            { 
+                title: "Connect with Mentors", 
+                description: "Find passionate teachers who love sharing their skills and expertise.", 
+                icon: "users", 
+                color: "text-pink-600", 
+                bg: "bg-pink-50" 
+            },
+            { 
+                title: "Learn at Your Pace", 
+                description: "Access content anytime, anywhere. Learn new hobbies on your schedule.", 
+                icon: "clock", 
+                color: "text-teal-600", 
+                bg: "bg-teal-50" 
+            },
+        ];
+
+        // Data for the Lecture Cards (Browse Page) - Mimics the videos shown in the clip
+        const lectures = [
+            {
+                id: 1,
+                title: "Salsa Dancing for Beginners",
+                description: "Learn the basic steps and movements of salsa dancing. Perfect for complete beginners who want to get started.",
+                category: "Dance",
+                level: "Beginner",
+                instructor: "Maria Rodriguez",
+                duration: "2h 45m",
+                views: "342 views",
+                imagePlaceholder: "https://placehold.co/600x400/6b46c1/ffffff?text=Dance+Video"
+            },
+            {
+                id: 2,
+                title: "Acoustic Guitar Fundamentals",
+                description: "Master the basics of acoustic guitar, including proper posture, finger positioning, and your first chords.",
+                category: "Music",
+                level: "Beginner",
+                instructor: "John Green",
+                duration: "3h 20m",
+                views: "621 views",
+                imagePlaceholder: "https://placehold.co/600x400/d53f8c/ffffff?text=Guitar+Video"
+            },
+            {
+                id: 3,
+                title: "Watercolor Painting Techniques",
+                description: "Explore various watercolor painting techniques including wet-on-wet, dry brush, and layering colors.",
+                category: "Art",
+                level: "Intermediate",
+                instructor: "Sue Wu",
+                duration: "1h 40m",
+                views: "298 views",
+                imagePlaceholder: "https://placehold.co/600x400/48bb78/ffffff?text=Art+Video"
+            },
+            {
+                id: 4,
+                title: "Introduction to DSLR Photography",
+                description: "A comprehensive guide to understanding your DSLR camera, exposure, and composition rules.",
+                category: "Photography",
+                level: "Beginner",
+                instructor: "Mark Chen",
+                duration: "2h 15m",
+                views: "1.1K views",
+                imagePlaceholder: "https://placehold.co/600x400/38b2ac/ffffff?text=Photo+Video"
+            },
+            {
+                id: 5,
+                title: "Thai Cuisine: Mastering Pad Thai",
+                description: "Learn to cook authentic Pad Thai from scratch, covering the perfect sauce and stir-frying techniques.",
+                category: "Cooking",
+                level: "Intermediate",
+                instructor: "Chef Anu",
+                duration: "0h 50m",
+                views: "587 views",
+                imagePlaceholder: "https://placehold.co/600x400/e9d8a6/000000?text=Cooking+Video"
+            },
+            {
+                id: 6,
+                title: "Advanced Wood Carving: Abstract Forms",
+                description: "Develop complex wood carving skills to create beautiful, abstract 3D sculptures.",
+                category: "Crafts",
+                level: "Advanced",
+                instructor: "David Kim",
+                duration: "4h 30m",
+                views: "188 views",
+                imagePlaceholder: "https://placehold.co/600x400/ed8936/ffffff?text=Crafts+Video"
+            },
+        ];
+
+        /**
+         * Renders the category cards on the home page.
+         */
+        function renderCategories() {
+            const grid = document.getElementById('category-grid');
+            grid.innerHTML = categories.map(cat => `
+                <div class="category-card p-6 bg-white rounded-xl shadow-lg hover:shadow-xl cursor-pointer text-center border-b-4 border-transparent hover:border-indigo-500 transition duration-300">
+                    <div class="${cat.bg} inline-flex p-4 rounded-full mb-3 shadow-inner">
+                        <i data-lucide="${cat.icon}" class="w-8 h-8 ${cat.color}"></i>
+                    </div>
+                    <p class="font-semibold text-sm sm:text-base text-gray-700">${cat.name}</p>
+                </div>
+            `).join('');
+            // Replace lucide icons
+            lucide.createIcons();
+        }
+
+        /**
+         * Renders the feature cards on the home page.
+         */
+        function renderFeatures() {
+            const grid = document.getElementById('feature-grid');
+            grid.innerHTML = features.map(feat => `
+                <div class="p-6 text-left bg-white rounded-xl shadow-md border-t-4 border-indigo-600">
+                    <div class="${feat.bg} inline-flex p-3 rounded-xl mb-4">
+                        <i data-lucide="${feat.icon}" class="w-6 h-6 ${feat.color}"></i>
+                    </div>
+                    <h3 class="font-bold text-xl mb-3">${feat.title}</h3>
+                    <p class="text-gray-500 text-sm">${feat.description}</p>
+                </div>
+            `).join('');
+            // Replace lucide icons
+            lucide.createIcons();
+        }
+
+
+        /**
+         * Renders the lecture cards based on current filters.
+         * @param {Array} filteredLectures - The list of lectures to display.
+         */
+        function renderLectures(filteredLectures) {
+            const grid = document.getElementById('lecture-grid');
+            const noResults = document.getElementById('no-results');
+            const showingCount = document.getElementById('showing-count');
+            
+            if (filteredLectures.length === 0) {
+                grid.innerHTML = '';
+                noResults.classList.remove('hidden');
+                showingCount.textContent = 'Showing 0 Videos';
+                return;
+            }
+
+            noResults.classList.add('hidden');
+            showingCount.textContent = `Showing ${filteredLectures.length} Videos`;
+
+            grid.innerHTML = filteredLectures.map(lecture => `
+                <div class="bg-white rounded-xl shadow-lg overflow-hidden transition duration-300 hover:shadow-xl">
+                    <!-- Image/Thumbnail with Level Badge -->
+                    <div class="relative h-48">
+                        <img src="${lecture.imagePlaceholder}" alt="${lecture.title}" class="w-full h-full object-cover">
+                        <span class="absolute top-3 right-3 text-xs font-semibold px-3 py-1 rounded-full 
+                            ${lecture.level === 'Beginner' ? 'bg-indigo-600 text-white' : 
+                              lecture.level === 'Intermediate' ? 'bg-pink-500 text-white' : 
+                              'bg-green-600 text-white'}">
+                            ${lecture.level}
+                        </span>
+                    </div>
+
+                    <!-- Content -->
+                    <div class="p-5">
+                        <h3 class="font-bold text-lg mb-2 text-gray-900">${lecture.title}</h3>
+                        <p class="text-sm text-gray-600 mb-4 line-clamp-2">${lecture.description}</p>
+                        
+                        <div class="flex flex-col space-y-3 text-xs text-gray-500 border-t pt-4">
+                            <!-- Mentor Info -->
+                            <div class="flex justify-between items-center">
+                                <div class="flex items-center text-sm font-semibold text-gray-800">
+                                    <i data-lucide="user" class="w-4 h-4 mr-2 text-indigo-500"></i>
+                                    <span>${lecture.instructor}</span>
+                                </div>
+                                <button onclick="openChatModal('${lecture.instructor}', ${lecture.id})" class="text-xs text-indigo-600 font-medium hover:text-indigo-800 transition flex items-center p-1 rounded-full hover:bg-indigo-50">
+                                    <i data-lucide="message-circle" class="w-4 h-4 mr-1"></i> Chat
+                                </button>
+                            </div>
+
+                            <!-- Duration/Views & Feedback -->
+                            <div class="flex justify-between items-center">
+                                <div class="flex items-center space-x-3 text-xs">
+                                    <div class="flex items-center">
+                                        <i data-lucide="clock" class="w-4 h-4 mr-1"></i>
+                                        <span>${lecture.duration}</span>
+                                    </div>
+                                    <div class="flex items-center">
+                                        <i data-lucide="eye" class="w-4 h-4 mr-1"></i>
+                                        <span>${lecture.views}</span>
+                                    </div>
+                                </div>
+                                <button onclick="openFeedbackModal('${lecture.title}', ${lecture.id})" class="text-xs text-pink-600 font-medium hover:text-pink-800 transition flex items-center p-1 rounded-full hover:bg-pink-50">
+                                    <i data-lucide="star" class="w-4 h-4 mr-1 fill-pink-600 text-pink-600"></i> Feedback
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            `).join('');
+
+            // Replace lucide icons
+            lucide.createIcons();
+        }
+
+        /**
+         * Filters the lectures based on the current search and select inputs.
+         */
+        function filterLectures() {
+            const search = document.getElementById('search-input').value.toLowerCase();
+            const category = document.getElementById('category-filter').value;
+            const level = document.getElementById('level-filter').value;
+
+            const filtered = lectures.filter(lecture => {
+                const matchesSearch = lecture.title.toLowerCase().includes(search) || 
+                                      lecture.description.toLowerCase().includes(search);
+                const matchesCategory = category === '' || lecture.category === category;
+                const matchesLevel = level === '' || lecture.level === level;
+
+                return matchesSearch && matchesCategory && matchesLevel;
+            });
+
+            renderLectures(filtered);
+        }
+
+        /**
+         * Handles the view switching logic.
+         * @param {string} view - The view to show ('home' or 'browse').
+         */
+        function switchView(view) {
+            const homeView = document.getElementById('home-view');
+            const browseView = document.getElementById('browse-view');
+            const navLinks = document.querySelectorAll('.nav-link');
+
+            // Reset all links
+            navLinks.forEach(link => link.classList.remove('nav-active'));
+
+            if (view === 'home') {
+                homeView.style.display = 'block';
+                browseView.style.display = 'none';
+                document.querySelector('[data-view="home"]').classList.add('nav-active');
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            } else if (view === 'browse') {
+                homeView.style.display = 'none';
+                browseView.style.display = 'block';
+                document.querySelector('[data-view="browse"]').classList.add('nav-active');
+                // Ensure lectures are filtered/rendered when switching to browse
+                filterLectures();
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            }
+        }
+
+        // --- Modal Functions ---
+
+        /**
+         * Opens the chat modal for a specific mentor.
+         * @param {string} instructorName - The name of the mentor.
+         * @param {number} lectureId - The ID of the lecture.
+         */
+        function openChatModal(instructorName, lectureId) {
+            const modalContainer = document.getElementById('modal-container');
+            
+            const chatContent = `
+                <div class="bg-white rounded-xl shadow-2xl w-full max-w-md h-[400px] flex flex-col overflow-hidden transform transition-all">
+                    <div class="skillswap-gradient text-white p-4 flex justify-between items-center">
+                        <h3 class="text-lg font-bold">Chat with ${instructorName}</h3>
+                        <button onclick="closeModal()" class="text-white hover:text-gray-200">
+                            <i data-lucide="x" class="w-6 h-6"></i>
+                        </button>
+                    </div>
+                    
+                    <div class="flex-grow p-4 space-y-3 overflow-y-auto bg-gray-50">
+                        <!-- Placeholder Chat Messages -->
+                        <div class="flex justify-start">
+                            <div class="bg-gray-200 text-gray-800 p-3 rounded-xl rounded-tl-sm max-w-[80%]">
+                                Hi! I have a question about ${lectures.find(l => l.id === lectureId).title}.
+                            </div>
+                        </div>
+                        <div class="flex justify-end">
+                            <div class="bg-indigo-500 text-white p-3 rounded-xl rounded-br-sm max-w-[80%]">
+                                Hello! I'm happy to help. What can I clarify for you?
+                            </div>
+                        </div>
+                        <!-- End Placeholder -->
+                    </div>
+
+                    <div class="p-4 border-t bg-white flex items-center">
+                        <input type="text" placeholder="Type your message..." class="flex-grow p-3 border border-gray-300 rounded-lg focus:ring-indigo-500 focus:border-indigo-500 mr-2">
+                        <button class="bg-indigo-600 text-white p-3 rounded-lg hover:bg-indigo-700 transition">
+                            <i data-lucide="send" class="w-5 h-5"></i>
+                        </button>
+                    </div>
+                </div>
+            `;
+            
+            modalContainer.innerHTML = chatContent;
+            modalContainer.classList.remove('hidden');
+            lucide.createIcons();
+        }
+
+        /**
+         * Opens the feedback modal for a specific lecture.
+         * @param {string} lectureTitle - The title of the lecture.
+         * @param {number} lectureId - The ID of the lecture.
+         */
+        function openFeedbackModal(lectureTitle, lectureId) {
+            const modalContainer = document.getElementById('modal-container');
+            
+            const feedbackContent = `
+                <div class="bg-white rounded-xl shadow-2xl w-full max-w-sm p-6 transform transition-all">
+                    <div class="flex justify-between items-center mb-4 border-b pb-3">
+                        <h3 class="text-xl font-bold text-gray-800">Give Feedback</h3>
+                        <button onclick="closeModal()" class="text-gray-400 hover:text-gray-600">
+                            <i data-lucide="x" class="w-6 h-6"></i>
+                        </button>
+                    </div>
+                    
+                    <p class="text-md text-gray-600 mb-4">Review for: **${lectureTitle}**</p>
+                    
+                    <div class="mb-6">
+                        <label class="block text-sm font-medium text-gray-700 mb-2">Your Rating</label>
+                        <div id="rating-stars" class="flex space-x-1">
+                            <!-- Stars will be injected by JavaScript -->
+                        </div>
+                    </div>
+                    
+                    <div class="mb-6">
+                        <label for="feedback-comment" class="block text-sm font-medium text-gray-700 mb-2">Comment (Optional)</label>
+                        <textarea id="feedback-comment" rows="3" class="w-full p-3 border border-gray-300 rounded-lg focus:ring-pink-500 focus:border-pink-500" placeholder="What did you think of the lecture?"></textarea>
+                    </div>
+
+                    <button onclick="submitFeedback(${lectureId})" class="w-full bg-pink-600 text-white font-bold py-3 rounded-lg hover:bg-pink-700 transition duration-300 shadow-md">
+                        Submit Feedback
+                    </button>
+                </div>
+            `;
+            
+            modalContainer.innerHTML = feedbackContent;
+            modalContainer.classList.remove('hidden');
+            lucide.createIcons();
+
+            // Render stars and add click handler
+            renderRatingStars();
+        }
+
+        function renderRatingStars() {
+            const starContainer = document.getElementById('rating-stars');
+            starContainer.innerHTML = '';
+            for (let i = 1; i <= 5; i++) {
+                const star = document.createElement('i');
+                star.setAttribute('data-lucide', 'star');
+                star.classList.add('w-6', 'h-6', 'text-gray-300', 'cursor-pointer', 'transition-colors');
+                star.onclick = () => highlightStars(i);
+                starContainer.appendChild(star);
+            }
+            lucide.createIcons();
+            highlightStars(0); // Initialize with no stars filled
+        }
+
+        function highlightStars(count) {
+            const stars = document.getElementById('rating-stars').querySelectorAll('i');
+            stars.forEach((star, index) => {
+                if (index < count) {
+                    star.classList.remove('text-gray-300');
+                    star.classList.add('text-yellow-400', 'fill-yellow-400');
+                } else {
+                    star.classList.remove('text-yellow-400', 'fill-yellow-400');
+                    star.classList.add('text-gray-300');
+                }
+                star.setAttribute('data-rating', count);
+            });
+        }
+
+        /**
+         * Simulates feedback submission.
+         * @param {number} lectureId - The ID of the lecture.
+         */
+        function submitFeedback(lectureId) {
+            const ratingStars = document.getElementById('rating-stars');
+            const rating = ratingStars.querySelector('[data-rating]').getAttribute('data-rating');
+            const comment = document.getElementById('feedback-comment').value;
+
+            // In a real application, you would send this data to a server/database.
+            console.log(`Submitting feedback for Lecture ID ${lectureId}:`);
+            console.log(`Rating: ${rating} stars`);
+            console.log(`Comment: ${comment}`);
+            
+            closeModal();
+            // Show confirmation message (using a non-alert message)
+            alertMessage('Thank you for your feedback!', 'bg-green-500');
+        }
+
+        /**
+         * Closes any open modal.
+         */
+        function closeModal() {
+            document.getElementById('modal-container').classList.add('hidden');
+            document.getElementById('modal-container').innerHTML = '';
+        }
+
+        /**
+         * Shows a temporary non-alert message.
+         */
+        function alertMessage(message, colorClass) {
+            const msgDiv = document.createElement('div');
+            msgDiv.className = `fixed bottom-5 right-5 ${colorClass} text-white p-4 rounded-lg shadow-xl z-[60] transition-opacity duration-300 opacity-0`;
+            msgDiv.textContent = message;
+            document.body.appendChild(msgDiv);
+
+            setTimeout(() => {
+                msgDiv.classList.remove('opacity-0');
+                msgDiv.classList.add('opacity-100');
+            }, 10);
+
+            setTimeout(() => {
+                msgDiv.classList.remove('opacity-100');
+                msgDiv.classList.add('opacity-0');
+                setTimeout(() => msgDiv.remove(), 300);
+            }, 3000);
+        }
+
+        // --- Event Listeners and Initialization ---
+
+        window.onload = function() {
+            // Initial rendering of Home page components
+            renderCategories();
+            renderFeatures();
+            
+            // Initial rendering of Browse page content
+            renderLectures(lectures);
+
+            // Set up Navigation Listeners
+            const navLinks = document.querySelectorAll('.nav-link');
+            navLinks.forEach(link => {
+                link.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    switchView(e.currentTarget.getAttribute('data-view'));
+                });
+            });
+
+            // Set up Hero Button Listener
+            document.querySelector('.button-browse').addEventListener('click', (e) => {
+                e.preventDefault();
+                switchView('browse');
+            });
+            
+            // Initialize view to Home
+            switchView('home');
+
+            // Replace lucide icons again after initial content injection
+            lucide.createIcons();
+        };
+
+    </script>
+</body>
+</html>
